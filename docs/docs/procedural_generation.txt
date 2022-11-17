@@ -1,0 +1,24 @@
+different layers of noise
+voxel obects/entites also made up of voxels. Interact when different blocks / particles hit them
+"stitch" chunk to merge diffeent biomes together?
+
+abstract terrain from voxel spec?
+abstract generator from voxel map
+
+// Generates voxels / blocks from noise
+CreateVoxelSpec()
+
+class VoxelGenerator
+{
+public:
+    TArray<EVoxel> Generate();
+
+    virtual float/EVoxel GetHeight/Voxel(int x, int y, int z);
+}
+
+
+when interacting:
+get chunk actor
+get position
+get local position
+lookup voxel

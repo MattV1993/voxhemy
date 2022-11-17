@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Voxhemy",
+			"Path": "C:\\my_repo\\voxhemy\\project\\Voxhemy\\Source\\Voxhemy.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "VoxhemyEditor",
+			"Path": "C:\\my_repo\\voxhemy\\project\\Voxhemy\\Source\\VoxhemyEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

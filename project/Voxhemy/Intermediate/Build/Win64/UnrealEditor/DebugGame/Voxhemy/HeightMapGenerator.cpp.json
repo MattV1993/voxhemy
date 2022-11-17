@@ -1,0 +1,26 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\my_repo\\voxhemy\\project\\voxhemy\\source\\voxhemy\\private\\voxelcreator\\heightmap\\heightmapgenerator.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\voxhemyeditor\\debuggame\\engine\\sharedpch.engine.nonoptimized.shadowerrors.h.pch",
+        "Includes": [
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\debuggame\\voxhemy\\definitions.voxhemy.h",
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\source\\voxhemy\\private\\voxelcreator\\heightmap\\heightmapgenerator.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\plugins\\marketplace\\fastnoisegenerator\\source\\fastnoisegenerator\\public\\fastnoisewrapper.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\coreuobject\\public\\uobject\\noexporttypes.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\coreuobject\\public\\uobject\\propertyaccessutil.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\core\\public\\math\\unitconversion.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\core\\public\\math\\unitconversion.inl",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\core\\public\\internationalization\\polyglottextdata.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\coreuobject\\public\\assetregistry\\arfilter.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\plugins\\marketplace\\fastnoisegenerator\\source\\thirdparty\\fastnoise\\public\\fastnoise.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\plugins\\marketplace\\fastnoisegenerator\\intermediate\\build\\win64\\unrealeditor\\inc\\fastnoisegenerator\\fastnoisewrapper.generated.h",
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\inc\\voxhemy\\heightmapgenerator.generated.h",
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\source\\voxhemy\\public\\voxelcreator\\heightmapfunction.h",
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\inc\\voxhemy\\heightmapfunction.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Voxhemy.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Voxhemy.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\VoxhemyEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Config\HoloLens">
+      <UniqueIdentifier>{4C8DD267-CDE7-336F-8602-F5F485D22BAB}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\HoloLens\HoloLensEngine.ini">
+      <Filter>Config\HoloLens</Filter>
+    </None>
+    <Filter Include="Source\Voxhemy">
+      <UniqueIdentifier>{95525A70-E48B-3B54-BBF3-06543CCEAC45}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Voxhemy\Voxhemy.Build.cs">
+      <Filter>Source\Voxhemy</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Voxhemy\Voxhemy.cpp">
+      <Filter>Source\Voxhemy</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Voxhemy\Voxhemy.h">
+      <Filter>Source\Voxhemy</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Voxhemy\VoxhemyGameModeBase.cpp">
+      <Filter>Source\Voxhemy</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Voxhemy\VoxhemyGameModeBase.h">
+      <Filter>Source\Voxhemy</Filter>
+    </ClInclude>
+    <Filter Include="Source\Voxhemy\Private">
+      <UniqueIdentifier>{CD762B18-372B-3EB9-A0BA-2E383BE07C3E}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxhemyCharacter.cpp">
+      <Filter>Source\Voxhemy\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\Voxhemy\Private\VoxelCreator">
+      <UniqueIdentifier>{9A2F3EE1-2F94-3F48-AD6F-E63EA56FB0FD}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\VoxelMap.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\VoxelObject.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator</Filter>
+    </ClCompile>
+    <Filter Include="Source\Voxhemy\Private\VoxelCreator\Chunk">
+      <UniqueIdentifier>{687048E4-D51D-3BD9-9CFC-1494C9BE5DA7}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\Chunk\Chunk.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Chunk</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Voxhemy\Private\VoxelCreator\Chunk\Chunk.h">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Chunk</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\Chunk\ChunkLoader.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Chunk</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Voxhemy\Private\VoxelCreator\Chunk\ChunkLoader.h">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Chunk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Voxhemy\Private\VoxelCreator\Chunk\ChunkMeshData.h">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Chunk</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\Chunk\ChunkUtils.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Chunk</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Voxhemy\Private\VoxelCreator\Chunk\ChunkUtils.h">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Chunk</Filter>
+    </ClInclude>
+    <Filter Include="Source\Voxhemy\Private\VoxelCreator\Generator">
+      <UniqueIdentifier>{B0D4DE85-1E0C-32CB-8FF5-2F1D2E9A37EE}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\Generator\VoxelGeneratorChunk.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Generator</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Voxhemy\Private\VoxelCreator\Generator\VoxelGeneratorChunk.h">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Generator</Filter>
+    </ClInclude>
+    <Filter Include="Source\Voxhemy\Private\VoxelCreator\HeightMap">
+      <UniqueIdentifier>{355025A5-1FFA-341C-A99E-426DD6724A9F}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\HeightMap\HeightMapFunction.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\HeightMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\HeightMap\HeightMapGenerator.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\HeightMap</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Voxhemy\Private\VoxelCreator\HeightMap\HeightMapGenerator.h">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\HeightMap</Filter>
+    </ClInclude>
+    <Filter Include="Source\Voxhemy\Private\VoxelCreator\Render">
+      <UniqueIdentifier>{62935BD5-8034-3707-BCFF-38E8DF74883D}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Voxhemy\Private\VoxelCreator\Render\RenderAlgorithm.h">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Render</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Voxhemy\Private\VoxelCreator\Render\RenderAlgorithmMarchingCube.cpp">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Render</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Voxhemy\Private\VoxelCreator\Render\RenderAlgorithmMarchingCube.h">
+      <Filter>Source\Voxhemy\Private\VoxelCreator\Render</Filter>
+    </ClInclude>
+    <Filter Include="Source\Voxhemy\Public">
+      <UniqueIdentifier>{2964EA9E-D3CD-3654-A56B-053FCEB96143}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Voxhemy\Public\VoxhemyCharacter.h">
+      <Filter>Source\Voxhemy\Public</Filter>
+    </ClInclude>
+    <Filter Include="Source\Voxhemy\Public\VoxelCreator">
+      <UniqueIdentifier>{F25CFC55-F78A-3476-AC7D-4F4FCCCD9C33}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\Voxhemy\Public\VoxelCreator\HeightMapFunction.h">
+      <Filter>Source\Voxhemy\Public\VoxelCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Voxhemy\Public\VoxelCreator\VoxelGenerator.h">
+      <Filter>Source\Voxhemy\Public\VoxelCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Voxhemy\Public\VoxelCreator\VoxelMap.h">
+      <Filter>Source\Voxhemy\Public\VoxelCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Voxhemy\Public\VoxelCreator\VoxelObject.h">
+      <Filter>Source\Voxhemy\Public\VoxelCreator</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

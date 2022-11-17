@@ -1,0 +1,21 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\inc\\voxhemy\\voxhemycharacter.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\voxhemyeditor\\debuggame\\engine\\sharedpch.engine.nonoptimized.shadowerrors.h.pch",
+        "Includes": [
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\debuggame\\voxhemy\\definitions.voxhemy.h",
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\source\\voxhemy\\public\\voxhemycharacter.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\charactermovementreplication.generated.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\rootmotionsource.generated.h",
+            "c:\\program files\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\character.generated.h",
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\inc\\voxhemy\\voxhemycharacter.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

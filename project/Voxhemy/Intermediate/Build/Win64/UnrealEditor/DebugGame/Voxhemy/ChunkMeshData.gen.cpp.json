@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\inc\\voxhemy\\chunkmeshdata.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\voxhemyeditor\\debuggame\\engine\\sharedpch.engine.nonoptimized.shadowerrors.h.pch",
+        "Includes": [
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\debuggame\\voxhemy\\definitions.voxhemy.h",
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\source\\voxhemy\\private\\voxelcreator\\chunk\\chunkmeshdata.h",
+            "c:\\my_repo\\voxhemy\\project\\voxhemy\\intermediate\\build\\win64\\unrealeditor\\inc\\voxhemy\\chunkmeshdata.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
