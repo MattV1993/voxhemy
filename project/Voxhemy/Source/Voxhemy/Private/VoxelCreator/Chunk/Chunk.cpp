@@ -1,52 +1,15 @@
 #include "Chunk.h"
-#include "HeightMap/HeightMapGenerator.h"
+#include "HeightMap/HeightMapContext.h"
+#include "Voxel/VoxelContext.h"
+#include "Mesh/VoxelStaticMeshContext.h"
 #include "Render/RenderAlgorithm.h"
 
 #include "Algo/AllOf.h"
 
 #include "Components/DynamicMeshComponent.h"
+
 #include "ProceduralMeshComponent.h"
 #include "DynamicMesh/MeshAttributeUtil.h"
-
-namespace
-{
-	bool CopyVertexColorsToOverlay(
-		const UE::Geometry::FDynamicMesh3& Mesh,
-		UE::Geometry::FDynamicMeshColorOverlay& ColorOverlayOut,
-		bool bCompactElements = false)
-	{
-		if (!Mesh.HasVertexColors())
-		{
-			return false;
-		}
-
-		if (ColorOverlayOut.ElementCount() > 0)
-		{
-			ColorOverlayOut.ClearElements();
-		}
-
-		ColorOverlayOut.BeginUnsafeElementsInsert();
-		for (int32 Vid : Mesh.VertexIndicesItr())
-		{
-			FVector3f Normal = Mesh.GetVertexColor(Vid);
-			ColorOverlayOut.InsertElement(Vid, &Normal.X, true);
-		}
-		ColorOverlayOut.EndUnsafeElementsInsert();
-
-		for (int32 Tid : Mesh.TriangleIndicesItr())
-		{
-			ColorOverlayOut.SetTriangle(Tid, Mesh.GetTriangle(Tid));
-		}
-
-		if (bCompactElements)
-		{
-			UE::Geometry::FCompactMaps CompactMaps;
-			ColorOverlayOut.CompactInPlace(CompactMaps);
-		}
-
-		return true;
-	}
-}
 
 AChunk::AChunk()
 {
@@ -64,66 +27,44 @@ void AChunk::SetChunkParams(const FChunkParams& NewChunkParams)
 
 	RenderAlgorithm = CreateRenderAlgorithm(this, Params.RenderAlgorithm);
 
-	if (Params.Generator)
+	int Size = Params.ChunkSize + 1;
+	FIntVector SizeVector{ Size, Size, Size };
+	const FVector LocationOffset = GetActorLocation() / Params.VoxelSize;
+
+	if (Params.HeightMapContext)
 	{
-		Generator = NewObject<UHeightMapGenerator>(GetOuter(), Params.Generator);
+		HeightMapContext = UHeightMapContext::Create(this, Params.HeightMapContext, SizeVector, LocationOffset);
 	}
-}
 
-TArray<float> AChunk::GenerateHeightMap()
-{
-	check(Params.Generator != nullptr);
-
-	const FVector Location = GetActorLocation() / Params.VoxelSize;
-	return Generator->Generate(Params.ChunkSize + 1, Params.ChunkSize + 1, Params.ChunkSize + 1, Location);
-}
-
-void AChunk::GenerateVoxels(const TArray<float>& HeightMap)
-{
-	Voxels.SetNum((Params.ChunkSize + 1) * (Params.ChunkSize + 1) * (Params.ChunkSize + 1));
-
-	int Index = 0;
-
-	FIntVector ChunkLocation = GetCorrectedChunkPosition1(GetActorLocation(), Params.VoxelSize, Params.ChunkSize);
-
- 	for (int X = 0; X <= Params.ChunkSize; X++)
+	if (Params.VoxelContext)
 	{
-		for (int Y = 0; Y <= Params.ChunkSize; Y++)
-		{
-			for (int Z = 0; Z <= Params.ChunkSize; Z++)
-			{
-				int VoxelIndex = GetVoxelIndex1(X, Y, Z, Params.ChunkSize + 1, Params.ChunkSize + 1, Params.ChunkSize + 1);
-				float Height = HeightMap[VoxelIndex];
+		VoxelContext = UVoxelContext::Create(this, Params.VoxelContext, SizeVector, LocationOffset);
+	}
 
-				if (Height > 0.f)
-				{
-					float CurrentZ = ChunkLocation.Z + Z;
-
-					if (CurrentZ < 50 && CurrentZ > -10)
-					{
-						Voxels[VoxelIndex] = { EVoxel::Grass, Height };
-					}
-					else
-					{
-						Voxels[VoxelIndex] = { EVoxel::Rock, Height };
-					}
-				}
-				else
-				{
-					Voxels[VoxelIndex] = { EVoxel::Air, Height };
-				}
-				
-			}
-		}
-
+	if (Params.VoxelStaticMeshContext)
+	{
+		VoxelStaticMeshContext = UVoxelStaticMeshContext::Create(this, Params.VoxelStaticMeshContext, this, SizeVector, Params.VoxelSize, GetActorLocation());
 	}
 }
 
 void AChunk::Load()
 {
-	TArray<float> HeightMap = GenerateHeightMap();
+	check(Params.HeightMapContext != nullptr);
 
-	GenerateVoxels(HeightMap);
+	// Create HeightMap
+	TArray<float> HeightMap = HeightMapContext->Generate();
+
+	// Create Voxels
+	TArray<EVoxel> VoxelMap = VoxelContext->Generate(HeightMap);
+
+	// Merge HeightMap and Voxels
+	int Size = Params.ChunkSize + 1;
+	Voxels.SetNum(Size * Size * Size);
+
+	for (int I = 0; I < HeightMap.Num(); I++)
+	{
+		Voxels[I] = TPair<EVoxel, float>{ VoxelMap[I], HeightMap[I] };
+	}
 
 	// Optimization - If above ground and chunk has no data, dont bother rendering
 	if (Params.Optimise)
@@ -137,7 +78,13 @@ void AChunk::Load()
 		}
 	}
 
-	MeshData2 = FDynamicMesh3{ true, true, true, false};
+	if (VoxelStaticMeshContext)
+	{
+		// Create Static Meshs
+		VoxelStaticMeshContext->Generate(Voxels);
+	}
+
+	MeshData2 = FDynamicMesh3{ true, true, true, false };
 	RenderAlgorithm->GenerateData(Voxels, Params, MeshData, MeshData2);
 
 	if (Params.MeshType == EMeshType::Dynamic)
@@ -147,7 +94,6 @@ void AChunk::Load()
 
 		UE::Geometry::CopyVertexNormalsToOverlay(MeshData2, *MeshData2.Attributes()->PrimaryNormals());
 		UE::Geometry::CopyVertexUVsToOverlay(MeshData2, *MeshData2.Attributes()->PrimaryUV());
-
 		CopyVertexColorsToOverlay(MeshData2, *MeshData2.Attributes()->PrimaryColors());
 	}
 
@@ -162,15 +108,27 @@ void AChunk::Unload()
 	}
 	else
 	{
-		
+		MeshData2 = FDynamicMesh3{ true, true, true, false };
+		DynamicMesh->SetMesh(MoveTemp(MeshData2));
 	}
 
 	Voxels.Reset();
 
+	HeightMapContext->ConditionalBeginDestroy();
+	HeightMapContext = nullptr;
+
+	VoxelContext->ConditionalBeginDestroy();
+	VoxelContext = nullptr;
+
+	if (VoxelStaticMeshContext)
+	{
+		VoxelStaticMeshContext->Reset();
+	}
+
 	Loaded = false;
 }
 
-bool AChunk::IsLoaded()
+bool AChunk::IsLoaded() const
 {
 	return Loaded;
 }
@@ -202,6 +160,11 @@ void AChunk::Render()
 			DynamicMesh->SetMesh(MoveTemp(MeshData2));
 			DynamicMesh->SetMaterial(0, Params.Material);
 		}
+	}
+
+	if (VoxelStaticMeshContext)
+	{
+		VoxelStaticMeshContext->Apply();
 	}
 }
 

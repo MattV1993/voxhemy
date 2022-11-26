@@ -33,3 +33,37 @@ TScriptInterface<IRenderAlgorithm> CreateRenderAlgorithm(UObject* Outer, EAlgori
 		return nullptr;
 	}
 }
+
+bool CopyVertexColorsToOverlay(const UE::Geometry::FDynamicMesh3& Mesh, UE::Geometry::FDynamicMeshColorOverlay& ColorOverlayOut, bool bCompactElements)
+{
+	if (!Mesh.HasVertexColors())
+	{
+		return false;
+	}
+
+	if (ColorOverlayOut.ElementCount() > 0)
+	{
+		ColorOverlayOut.ClearElements();
+	}
+
+	ColorOverlayOut.BeginUnsafeElementsInsert();
+	for (int32 Vid : Mesh.VertexIndicesItr())
+	{
+		FVector3f Normal = Mesh.GetVertexColor(Vid);
+		ColorOverlayOut.InsertElement(Vid, &Normal.X, true);
+	}
+	ColorOverlayOut.EndUnsafeElementsInsert();
+
+	for (int32 Tid : Mesh.TriangleIndicesItr())
+	{
+		ColorOverlayOut.SetTriangle(Tid, Mesh.GetTriangle(Tid));
+	}
+
+	if (bCompactElements)
+	{
+		UE::Geometry::FCompactMaps CompactMaps;
+		ColorOverlayOut.CompactInPlace(CompactMaps);
+	}
+
+	return true;
+}

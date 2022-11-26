@@ -4,6 +4,7 @@
 
 class AChunk;
 
+// TODO: Find a way of suspending thread of similar when not loading
 class FChunkLoaderWorker : public FRunnable
 {
 public:
@@ -24,10 +25,11 @@ private:
 
 	bool ShouldStop = false;
 
-	FCriticalSection Mutex;
+	// TODO: Switch to TQueue to remove locks
+	TQueue<AChunk*> LoadChunks;
+	TQueue<AChunk*> LoadedChunks;
 
-	TArray<AChunk*> LoadChunks;
-	TArray<AChunk*> LoadedChunks;
+	FThreadSafeCounter Count;
 };
 
 class FChunkLoader

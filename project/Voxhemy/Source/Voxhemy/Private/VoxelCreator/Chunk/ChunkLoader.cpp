@@ -14,33 +14,30 @@ uint32 FChunkLoaderWorker::Run()
 {
 	while (!ShouldStop)
 	{
-		Mutex.Lock();
-
-		TArray<AChunk*> Loads = LoadChunks;
-		LoadChunks.Reset(0);
-
-		Mutex.Unlock();
-
-		for (auto Load : Loads)
+		if (LoadChunks.IsEmpty())
 		{
-			if (Load->IsLoaded() == false)
+			FPlatformProcess::Sleep(0.001f);
+			continue;
+		}
+
+		AChunk* Chunk = nullptr;
+
+		while ((LoadChunks.Dequeue(Chunk)))
+		{
+			if (Chunk->IsLoaded() == false)
 			{
-				Load->Load();
+				Chunk->Load();
 			}
 
-			Mutex.Lock();
+			Count.Decrement();
 
-			LoadedChunks.Add(Load);
-
-			Mutex.Unlock();
+			LoadedChunks.Enqueue(Chunk);
 
 			if (ShouldStop)
 			{
 				break;
 			}
 		}
-
-		Loads.Reset();
 
 		FPlatformProcess::Sleep(0.001f);
 	}
@@ -60,26 +57,26 @@ void FChunkLoaderWorker::Stop()
 
 void FChunkLoaderWorker::LoadChunk(AChunk* Chunk)
 {
-	Mutex.Lock();
-
-	LoadChunks.Add(Chunk);
-
-	Mutex.Unlock();
+	Count.Increment();
+	LoadChunks.Enqueue(Chunk);
 }
 
 TArray<AChunk*> FChunkLoaderWorker::GetLoadedChunks()
 {
-	Mutex.Lock();
-	TArray<AChunk*> Chunks = LoadedChunks;
-	LoadedChunks.Reset();
-	Mutex.Unlock();
+	TArray<AChunk*> Chunks;
+	AChunk* Chunk = nullptr;
+	
+	while ((LoadedChunks.Dequeue(Chunk)))
+	{
+		Chunks.Push(Chunk);
+	}
 
 	return Chunks;
 }
 
 int FChunkLoaderWorker::GetLoadingChunksCount() const
 {
-	return LoadChunks.Num();
+	return Count.GetValue();
 }
 
 void FChunkLoader::Start()

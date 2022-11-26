@@ -3,7 +3,15 @@
 #include "Render/RenderAlgorithm.h"
 #include "FastNoiseWrapper.h"
 
+#include "DynamicMesh/MeshAttributeUtil.h"
+
 #include "ChunkUtils.generated.h"
+
+class UHeightMapContext;
+class UVoxelContext;
+class UVoxelStaticMeshContext;
+class UHeightMapGenerator;
+class AStaticMesh;
 
 UENUM()
 enum class EVoxel : uint8
@@ -29,8 +37,6 @@ enum class EMeshType
 	Dynamic
 };
 
-class UHeightMapGenerator;
-
 USTRUCT(BlueprintType)
 struct FChunkParams
 {
@@ -49,13 +55,28 @@ struct FChunkParams
 		UMaterialInterface* Material;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int TickSpeedMS = 10;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int UpdatesPerTick = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int RendersPerTick = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float SurfaceLevel = 0.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool Interpolation = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TSubclassOf<UHeightMapGenerator> Generator;
+		TSubclassOf<UHeightMapContext> HeightMapContext;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TSubclassOf<UVoxelContext> VoxelContext;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TSubclassOf<UVoxelStaticMeshContext> VoxelStaticMeshContext;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool DrawDebug = false;
@@ -68,7 +89,6 @@ struct FChunkParams
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		EMeshType MeshType = EMeshType::Procedural;
-
 };
 
 int GetVoxelIndex1(int X, int Y, int Z, int XSize, int YSize, int ZSize);
@@ -76,3 +96,8 @@ int GetVoxelIndex1(int X, int Y, int Z, int XSize, int YSize, int ZSize);
 FIntVector GetCorrectedChunkPosition1(FVector Position, float VoxelSize, int32 ChunkSize);
 
 TScriptInterface<IRenderAlgorithm> CreateRenderAlgorithm(UObject* Outer, EAlgorithmType AlgorithmType);
+
+bool CopyVertexColorsToOverlay(
+	const UE::Geometry::FDynamicMesh3& Mesh,
+	UE::Geometry::FDynamicMeshColorOverlay& ColorOverlayOut,
+	bool bCompactElements = false);

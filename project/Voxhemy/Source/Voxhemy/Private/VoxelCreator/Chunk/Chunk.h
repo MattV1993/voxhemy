@@ -15,6 +15,10 @@ class UDynamicMeshComponent;
 class UVoxelGenerator;
 class IRenderAlgorithm;
 
+class UHeightMapContext;
+class UVoxelContext;
+class UVoxelStaticMeshContext;
+
 UCLASS()
 class VOXHEMY_API AChunk : public AActor
 {
@@ -29,7 +33,7 @@ public:
 	void Load();
 	void Unload();
 
-	bool IsLoaded();
+	bool IsLoaded() const;
 
 	void Render();
 
@@ -44,14 +48,16 @@ protected:
 
 private:
 
-	TArray<float> GenerateHeightMap();
-
-	void GenerateVoxels(const TArray<float>& HeightMap);
-
 	bool Loaded = false;
 
 	UPROPERTY()
-		UHeightMapGenerator* Generator;
+		UHeightMapContext* HeightMapContext;
+
+	UPROPERTY()
+		UVoxelContext* VoxelContext;
+
+	UPROPERTY()
+		UVoxelStaticMeshContext* VoxelStaticMeshContext;
 
 	UPROPERTY()
 		TScriptInterface<IRenderAlgorithm> RenderAlgorithm;
@@ -65,8 +71,6 @@ private:
 
 	UPROPERTY()
 		TObjectPtr<UProceduralMeshComponent> Mesh;
-
-	//UE::Geometry::FDynamicMesh3 DynamicMesh;
 
 	UPROPERTY()
 	UDynamicMeshComponent* DynamicMesh;
